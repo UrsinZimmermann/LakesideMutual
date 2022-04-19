@@ -1,0 +1,61 @@
+name: Docker Image CI
+
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push image to Docker Hub
+        id: build-image
+        run: |
+          COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose -f docker-compose.prod.yml build
+          COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose -f docker-compose.prod.yml push
+
+      - uses: azure/k8s-set-context@v1
+        id: login
+        with:
+          kubeconfig: ${{ secrets.aks_lakesidemutualgitcluster_kubeConfig }}
+
+      - name: Create namespace
+        run: |
+          namespacePresent=`kubectl get namespace | grep default | wc -l`
+          if [ $namespacePresent -eq 0 ]
+          then
+              echo `kubectl create namespace default`
+          fi
+      - uses: azure/k8s-deploy@v1.2
+        with:
+          namespace: default
+          manifests: |
+            manifests/customer-core-deployment.yaml
+            manifests/customer-core-service.yaml
+            manifests/customer-management-backend-deployment.yaml
+            manifests/customer-management-backend-service.yaml
+            manifests/customer-management-frontend-deployment.yaml
+            manifests/customer-management-frontend-service.yaml
+            manifests/customer-self-service-backend-deployment.yaml
+            manifests/customer-self-service-backend-service.yaml
+            manifests/customer-self-service-frontend-deployment.yaml
+            manifests/customer-self-service-frontend-service.yaml
+            manifests/spring-boot-admin-deployment.yaml
+            manifests/spring-boot-admin-service.yaml
+          images: |
+            backis9/spring-boot-admin:latest
+            backis9/customer-self-service-frontend:latest
+            backis9/customer-self-service-backend:latest
+            backis9/customer-management-frontend:latest
+            backis9/customer-management-backend:latest
+            backis9/customer-core:latest
