@@ -21,13 +21,13 @@ version: "3"
 services:
   spring-boot-admin:
     build: spring-boot-admin
-    image: ursin/lakesidemutual/spring-boot-admin
+    image: backis9/spring-boot-admin
     ports:
       - "9000:9000"
 
   customer-core:
     build: customer-core
-    image: ursin/lakesidemutual/customer-core
+    image: backis9/customer-core
     environment:
       - "SPRING_BOOT_ADMIN_CLIENT_URL=spring-boot-admin:9000"
     ports:
@@ -35,7 +35,7 @@ services:
 
   customer-management-backend:
     build: customer-management-backend
-    image: ursin/lakesidemutual/customer-management-backend
+    image: backis9/customer-management-backend
     depends_on:
       - customer-core
     environment:
@@ -46,7 +46,7 @@ services:
 
   customer-management-frontend:
     build: customer-management-frontend
-    image: ursin/lakesidemutual/customer-management-frontend
+    image: backis9/customer-management-frontend
     depends_on:
       - customer-management-backend
     ports:
@@ -54,7 +54,7 @@ services:
 
   customer-self-service-backend:
     build: customer-self-service-backend
-    image: ursin/lakesidemutual/customer-self-service-backend
+    image: backis9/customer-self-service-backend
     depends_on:
       - customer-core
     environment:
@@ -65,7 +65,7 @@ services:
 
   customer-self-service-frontend:
     build: customer-self-service-frontend
-    image: ursin/lakesidemutual/customer-self-service-frontend
+    image: backis9/customer-self-service-frontend
     depends_on:
       - customer-self-service-backend
       - customer-management-backend

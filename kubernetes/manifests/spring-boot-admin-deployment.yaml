@@ -24,7 +24,7 @@ spec:
         io.kompose.service: spring-boot-admin
     spec:
       containers:
-        - image: backis9/spring-boot-admin:latest
+        - image: backis9/spring-boot-admin
           name: spring-boot-admin
           ports:
             - containerPort: 9000

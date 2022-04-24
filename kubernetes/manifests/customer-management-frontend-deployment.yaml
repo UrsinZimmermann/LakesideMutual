@@ -24,7 +24,7 @@ spec:
         io.kompose.service: customer-management-frontend
     spec:
       containers:
-        - image: abdullahalmaz/customer-management-frontend
+        - image: backis9/customer-management-frontend
           name: customer-management-frontend
           ports:
             - containerPort: 80

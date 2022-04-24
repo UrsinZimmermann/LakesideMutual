@@ -24,7 +24,7 @@ spec:
         io.kompose.service: customer-self-service-frontend
     spec:
       containers:
-        - image: abdullahalmaz/customer-self-service-frontend
+        - image: backis9/customer-self-service-frontend
           name: customer-self-service-frontend
           ports:
             - containerPort: 80
@@ -33,6 +33,6 @@ spec:
             - name: REACT_APP_CUSTOMER_SELF_SERVICE_BACKEND
               value: http://20.76.107.80:8080
             - name: REACT_APP_CUSTOMER_MANAGEMENT_BACKEND
-              value: http://20.31.93.193:8100
+              value: http://20.31.92.178:8100
       restartPolicy: Always
 status: {}
