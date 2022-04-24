@@ -48,18 +48,18 @@ jobs:
         with:
           namespace: default
           manifests: |
-            manifests/customer-core-deployment.yaml
-            manifests/customer-core-service.yaml
-            manifests/customer-management-backend-deployment.yaml
-            manifests/customer-management-backend-service.yaml
-            manifests/customer-management-frontend-deployment.yaml
-            manifests/customer-management-frontend-service.yaml
-            manifests/customer-self-service-backend-deployment.yaml
-            manifests/customer-self-service-backend-service.yaml
-            manifests/customer-self-service-frontend-deployment.yaml
-            manifests/customer-self-service-frontend-service.yaml
-            manifests/spring-boot-admin-deployment.yaml
-            manifests/spring-boot-admin-service.yaml
+            kubernetes/manifests/customer-core-deployment.yaml
+            kubernetes/manifests/customer-core-service.yaml
+            kubernetes/manifests/customer-management-backend-deployment.yaml
+            kubernetes/manifests/customer-management-backend-service.yaml
+            kubernetes/manifests/customer-management-frontend-deployment.yaml
+            kubernetes/manifests/customer-management-frontend-service.yaml
+            kubernetes/manifests/customer-self-service-backend-deployment.yaml
+            kubernetes/manifests/customer-self-service-backend-service.yaml
+            kubernetes/manifests/customer-self-service-frontend-deployment.yaml
+            kubernetes/manifests/customer-self-service-frontend-service.yaml
+            kubernetes/manifests/spring-boot-admin-deployment.yaml
+            kubernetes/manifests/spring-boot-admin-service.yaml
           images: |
             backis9/spring-boot-admin:latest
             backis9/customer-self-service-frontend:latest
